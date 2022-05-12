@@ -1,0 +1,52 @@
+DB 연동 처리에 필요한 라이브러리
+
+해당 DBMS(오라클, MySQL 등) 드라이버 라이브러리, DB 관련
+라이브러리를 프로젝트의 pom.xml에 포함시켜야 함.
+
+필요한 라이브러리
+1. 드라이버 라이브러리
+2. spring-jdbc
+3. spring-tx(트랜잭션용)
+4. commons-dbcp2(커넥션 풀 라이브러리)
+5. log4jdbc-remix(DB 로그 처리용 라이브러리)
+6. mybatis
+7. mybatis-spring
+
+기타
+8. logback-classic(log4j 대신 사용하는 로그용 라이브러리)
+  logback.xml을 src/main/resources 폴더에 넣어준다.
+  첫번째 <logger name="패키지" level="info" /> 요소의
+  name 속성에 프로젝트의 패키지를 넣어줌.
+
+  
+단위 테스트 : JUnit
+spring-test 라이브러리 포함.
+
+
+MyBatis
+  맵퍼(mapper) 작성법
+  1. parameterType에는 1개의 Type만 올 수 있다.
+	매개변수가 여러개 일 경우 parameterType을 생략.(비추!)
+  2. parameterType이 변수일 경우 : #{변수명}
+  3. parameterType이 DTO일 경우 : #{필드명}
+  4. 여러개의 값을 사용하여 쿼리를 작성해야하는 경우
+     Map<key, value>를 사용 : #{key}
+  5. resultType에는 1개의 Type만 사용.
+     전체(*) 검색을 경우 DTO를 사용.
+
+
+
+서비스 패키지 처리
+  Spring Framework의 Component(Controller, Service, 기타 등등).
+  Framework가 scan을 통해 인스턴스를 생성.
+
+  root-context.xml에 context:component-scan 태그 작성.
+  package에 서비스 패키지를 입력.
+
+
+RedirectAttributes 클래스(객체)
+  리다이렉트 시 데이터 전달은 Get 방식으로밖에 처리가 안됨.
+  Post 방식 처럼 데이터를 전달하는 객체.
+  세션을 잠시 활용하여 임시로 데이터를 저장하고 사용 후 삭제(소멸)
+  FlashAttribute
+
